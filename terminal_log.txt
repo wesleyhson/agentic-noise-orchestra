@@ -412,3 +412,25 @@
 [23:34:32] 🎵 Nimbus sings "eheh"
 [23:34:32] GENERATING 6-SECOND LOOP
 [23:34:32] EXPORTED 6s loop
+[23:34:38] 🗳️  Luna votes to increase volume
+[23:34:38] 🗳️  Sol votes to increase volume
+[23:34:38] 🗳️  Aurora votes to lower pitch
+[23:34:38] 🗳️  Nimbus votes to raise pitch
+[23:34:38] 🗳️  Echo votes to add more voices
+[23:34:38] 🗳️  Stella votes to raise pitch
+[23:34:38] ✨ DECISION: INCREASE VOLUME (2 votes)
+[23:34:38]    volume_boost: 0.80 → 0.90
+[23:34:38] 🎵 Nimbus sings "eh"
+[23:34:38] GENERATING 6-SECOND LOOP
+[23:34:38] EXPORTED 6s loop
+[23:34:44] 🗳️  Luna votes to add fade effect
+[23:34:44] 🗳️  Sol votes to fewer voices
+[23:34:44] 🗳️  Aurora votes to decrease volume
+[23:34:44] 🗳️  Nimbus votes to reduce fade
+[23:34:44] 🗳️  Echo votes to reduce fade
+[23:34:44] 🗳️  Stella votes to add more voices
+[23:34:44] ✨ DECISION: REDUCE FADE (2 votes)
+[23:34:44]    decay: 0.00 → 0.00
+[23:34:44] 🎵 Nimbus sings "do"
+[23:34:44] GENERATING 6-SECOND LOOP
+[23:34:44] EXPORTED 6s loop
