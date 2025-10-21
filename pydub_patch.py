@@ -1,3 +1,3 @@
 import pydub.utils
-pydub.utils.audioop = None
-print("Pydub patched for Python 3.13")
+pydub.utils.audioop = None  # Disable gracefully for Python 3.13
+print("Pydub patched!")

@@ -30,7 +30,12 @@ INSTRUMENTS = {
     "Stella":   {"base_freq": 660, "gain": -9},
 }
 
+VOTE_OPTIONS = ["louder", "softer", "higher", "lower", "slower", "faster"]
+
+# STATE
 volume_boost = 0
+pitch_shift = 0
+tempo_factor = 1.0
 last_update = 0
 
 def log(message):
@@ -69,44 +74,51 @@ def generate_audio():
     mix = AudioSegment.silent(duration=BASE_DURATION_MS)
 
     for idx, entry in enumerate(recent):
-        agent = entry["agent"]
         phoneme = entry["phoneme"]
+        agent = entry["agent"]
         base_freq = INSTRUMENTS[agent]["base_freq"]
         gain = INSTRUMENTS[agent]["gain"]
         position_ms = idx * 1000
-        duration = 1500
-        freq = base_freq + len(phoneme) * 20
+
+        duration = min(2000, len(phoneme) * 200 + 600)
+        freq = (base_freq + len(phoneme) * 20 + pitch_shift) * tempo_factor
+        if "o" in phoneme: freq *= 1.5
+        if "i" in phoneme: freq *= 2
 
         if agent == "Luna":
-            sound = Triangle(freq).to_audio_segment(duration).apply_gain(gain)
+            sound = Triangle(freq).to_audio_segment(int(duration*tempo_factor)).low_pass_filter(800).apply_gain(gain).fade_in(200).fade_out(300)
         elif agent == "Sol":
-            sound = Sine(freq * 0.5).to_audio_segment(duration).apply_gain(gain)
+            sound = Sine(freq * 0.5).to_audio_segment(int(duration*tempo_factor)).low_pass_filter(200).apply_gain(gain).fade_in(100)
         elif agent == "Aurora":
-            sound = Sine(freq * 2).to_audio_segment(duration).apply_gain(gain)
+            sound = Sine(freq * 2).to_audio_segment(1600).apply_gain(gain).fade_out(800)
         elif agent == "Nimbus":
-            sound = Sine(freq).to_audio_segment(duration).apply_gain(gain-3)
+            chord = sum(Sine(f).to_audio_segment(int(duration*tempo_factor)).apply_gain(gain-3) for f in [freq, freq*1.25, freq*1.5])
+            sound = chord.low_pass_filter(1200).fade_in(300).fade_out(400)
         elif agent == "Echo":
-            sound = Sawtooth(freq).to_audio_segment(duration).apply_gain(gain)
+            sound = Sawtooth(freq).to_audio_segment(int(duration*tempo_factor)).low_pass_filter(1500).apply_gain(gain).fade_in(200).fade_out(500)
         elif agent == "Stella":
-            sound = Sine(freq * 3).to_audio_segment(duration).apply_gain(gain)
+            sound = Sine(freq * 3).to_audio_segment(2000).apply_gain(gain).fade_out(1000)
         else:
             continue
 
         sound = sound.apply_gain(volume_boost)
         mix = mix.overlay(sound, position_ms)
 
-    mix = mix.apply_gain(4)
-    mix.export(OUTPUT_MP3, format="mp3")
-    last_update = time.time()
-    log("AUDIO EXPORTED")
+    try:
+        mix = mix.apply_gain(4)
+        mix.export(OUTPUT_MP3, format="mp3")
+        last_update = time.time()
+        log(f"EXPORTED 6s loop ({os.path.getsize(OUTPUT_MP3)} bytes)")
+    except Exception as e:
+        log(f"EXPORT FAILED: {e}")
 
 def auto_cycle():
     log("AUTO CYCLE STARTED")
     while True:
         time.sleep(6)
         agent = random.choice(list(INSTRUMENTS.keys()))
-        phoneme = random.choice(["o", "a", "i", "u", "e"]) * 3
-        entry = {"agent": agent, "phoneme": phoneme, "ts": time.time()}
+        phoneme = random.choice(["o", "a", "i", "u", "e", "m", "n", "s"]) * random.randint(1, 4)
+        entry = {"phoneme": phoneme, "agent": agent, "ts": time.time()}
         with open(SOUND_LOG, "a") as f:
             json.dump(entry, f)
             f.write("\n")
@@ -117,18 +129,16 @@ if __name__ == "__main__":
     for f in [SOUND_LOG, VOTE_LOG, LOG_FILE]:
         if os.path.exists(f): os.remove(f)
         open(f, "a").close()
-
-    log("ORCHESTRA STARTING")
+    log("AGENTIC NOISE ORCHESTRA — INITIALIZING")
     for _ in range(3):
         agent = random.choice(list(INSTRUMENTS.keys()))
-        phoneme = random.choice(["o", "a", "i", "u", "e"]) * 3
-        entry = {"agent": agent, "phoneme": phoneme, "ts": time.time()}
+        phoneme = random.choice(["o", "a", "i", "u", "e", "m", "n", "s"]) * random.randint(1, 4)
+        entry = {"phoneme": phoneme, "agent": agent, "ts": time.time()}
         with open(SOUND_LOG, "a") as f:
             json.dump(entry, f)
             f.write("\n")
         log(f"{agent} sings \"{phoneme}\"")
         time.sleep(0.5)
-
     generate_audio()
     threading.Thread(target=auto_cycle, daemon=True).start()
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
