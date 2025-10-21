@@ -8,8 +8,12 @@ An experimental generative audio web application that creates evolving 6-second 
 **Last Updated**: October 21, 2025
 
 ## Recent Changes
+- **October 21, 2025**: Redesigned voting to control sound parameters
+  - Agents now vote on sound parameter changes (volume, complexity, pitch, decay) instead of who sings
+  - Winning parameter changes affect the entire soundscape (e.g., louder, more complex, pitch up/down)
+  - Terminal displays voting decisions and shows parameter value changes in real-time
+  - Sound evolves organically based on collective agent decisions
 - **October 21, 2025**: Enhanced with voting and expanded vocalizations
-  - Added agentic voting system where all 6 agents vote on who sings next
   - Expanded phoneme library from 5 to 30+ vocalizations including syllables like "la", "hmm", "wow", etc.
   - Terminal now displays complete voting process with emoji indicators
   - Voting results stored in votes.jsonl for tracking
@@ -44,10 +48,16 @@ An experimental generative audio web application that creates evolving 6-second 
 
 ### How It Works
 1. **Initialization**: On startup, the app clears previous logs and generates initial sounds from 3 random agents using varied vocalizations
-2. **Agentic Voting**: Every 6 seconds, all 6 agents vote for who should sing next. The agent with the most votes (or random winner if tied) gets to perform
-3. **Audio Generation**: Each agent has a unique base frequency. Phoneme length affects pitch variation through frequency shifts
-4. **Vocalization Selection**: The winning agent randomly chooses from 30+ phonemes and vocalizations, with 30% chance of repetition
-5. **Frontend**: Displays the audio player, real-time waveform visualization, and terminal logs showing voting process and agent activity
+2. **Agentic Voting on Sound Parameters**: Every 6 seconds, all 6 agents vote on how to modify the soundscape:
+   - **Volume Control**: LOUDER/QUIETER (adjusts overall mix volume 0.1-2.0)
+   - **Complexity**: MORE_COMPLEX/SIMPLER (changes number of simultaneous voices 1-10)
+   - **Pitch Shift**: PITCH_UP/PITCH_DOWN (global frequency adjustment -200 to +200 Hz)
+   - **Decay Effect**: ADD_DECAY/LESS_DECAY (fade-out intensity 0.0-1.0)
+3. **Parameter Application**: The winning parameter change is applied to the entire soundscape, affecting all agents
+4. **Agent Performance**: After voting, a random agent is selected to add their voice to the mix
+5. **Vocalization Selection**: The agent randomly chooses from 30+ phonemes and vocalizations, with 30% chance of repetition
+6. **Audio Generation**: Sound is generated using current parameters (volume, complexity, pitch shift, decay) applied to all voices
+7. **Frontend**: Displays audio player, real-time waveform visualization, and terminal logs showing voting decisions and parameter changes
 
 ### Agents & Instruments
 - **Luna**: 220 Hz (gain 0.3)
