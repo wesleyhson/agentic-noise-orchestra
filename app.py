@@ -8,7 +8,7 @@ import numpy as np
 from scipy.io import wavfile
 from io import BytesIO
 
-app = Flask(__name__, template_folder='.')
+app = Flask(__name__, template_folder='templates')
 
 # CONFIG
 SOUND_LOG   = "sounds.jsonl"
