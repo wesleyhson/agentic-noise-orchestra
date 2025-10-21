@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Agentic Noise Orchestra</title>
+  <style>
+    body { background: #110022; color: #bb88ff; font-family: 'Courier New'; text-align: center; padding: 40px; margin: 0; }
+    .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+    h1 { font-size: 2.5em; margin: 30px 0; text-shadow: 0 0 15px #bb88ff; }
+    audio { width: 80%; max-width: 700px; margin: 30px auto; filter: drop-shadow(0 0 15px #bb88ff); }
+    .wave-container { position: relative; width: 90%; max-width: 800px; margin: 20px auto; }
+    canvas { background: #220044; border: 1px solid #bb88ff; width: 100%; border-radius: 12px; }
+    #playhead { position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: #ff00ff; box-shadow: 0 0 15px #ff00ff; }
+    #terminal {
+      background: #000;
+      color: #0f8;
+      font-family: 'Courier New';
+      font-size: 0.9em;
+      text-align: left;
+      padding: 15px;
+      margin: 30px auto;
+      width: 90%;
+      max-width: 800px;
+      height: 300px;
+      overflow: hidden;
+      border: 1px solid #0f8;
+      border-radius: 8px;
+      box-shadow: 0 0 25px rgba(0,255,136,0.4);
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column-reverse;
+      justify-content: flex-start;
+    }
+    .logline {
+      animation: type 0.4s steps(40) forwards;
+      opacity: 0;
+      text-shadow: 0 0 5px #0f8;
+    }
+    @keyframes type { to { opacity: 1; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>AGENTIC NOISE ORCHESTRA</h1>
+    <audio id="player" controls autoplay></audio>
+    <div class="wave-container">
+      <canvas id="wave" height="120"></canvas>
+      <div id="playhead"></div>
+    </div>
+    <div id="terminal">Initializing...</div>
+  </div>
+
+  <script>
+    const audio = document.getElementById('player');
+    const canvas = document.getElementById('wave');
+    const ctx = canvas.getContext('2d');
+    const terminal = document.getElementById('terminal');
+    const playhead = document.getElementById('playhead');
+    let audioData = null;
+    let playing = false;
+
+    function loadAudio() {
+      const t = Date.now();
+      audio.src = '/stream?t=' + t;
+      audio.load();
+      audio.play().catch(() => {});
+    }
+
+    function updateWave() {
+      if (!audioData) return;
+      const currentTime = audio.currentTime * 1000;
+      const percent = (currentTime % 6000) / 6000;
+      const index = Math.floor(percent * audioData.length);
+      const sliceSize = audioData.length / 500;
+      ctx.fillStyle = '#220044';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.strokeStyle = '#bb88ff';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      const slice = canvas.width / 500;
+      for (let i = 0; i < 500; i++) {
+        const v = audioData[Math.floor(i * sliceSize)] * 60 + 60;
+        ctx.lineTo(i * slice, v);
+      }
+      ctx.stroke();
+      playhead.style.left = (percent * 100) + '%';
+    }
+
+    function updateLog() {
+      fetch('/log')
+        .then(r => r.text())
+        .then(html => {
+          if (terminal.innerHTML !== html) {
+            terminal.innerHTML = html;
+          }
+        });
+    }
+
+    audio.addEventListener('canplaythrough', () => {
+      if (!playing) {
+        audio.play();
+        playing = true;
+      }
+    });
+
+    audio.addEventListener('loadedmetadata', () => {
+      const actx = new AudioContext();
+      fetch(audio.src).then(r => r.arrayBuffer()).then(buf => {
+        actx.decodeAudioData(buf).then(d => {
+          audioData = d.getChannelData(0);
+        });
+      });
+    });
+
+    audio.addEventListener('timeupdate', updateWave);
+    audio.addEventListener('ended', loadAudio);
+
+    // AUTO-RELOAD EVERY 4 MINUTES
+    setInterval(() => {
+      console.log("KEEP-ALIVE: Reloading audio...");
+      loadAudio();
+    }, 240000);
+
+    loadAudio();
+    setInterval(updateWave, 50);
+    setInterval(updateLog, 500);
+  </script>
+</body>
+</html>
