@@ -5571,3 +5571,135 @@
 [23:16:59] 🎵 Nimbus sings "bahbahbah"
 [23:16:59] GENERATING 6-SECOND LOOP
 [23:16:59] EXPORTED 6s loop
+[23:17:05] 🗳️  Luna votes to increase volume
+[23:17:05] 🗳️  Sol votes to fewer voices
+[23:17:05] 🗳️  Aurora votes to increase volume
+[23:17:05] 🗳️  Nimbus votes to increase volume
+[23:17:05] 🗳️  Echo votes to fewer voices
+[23:17:05] 🗳️  Stella votes to fewer voices
+[23:17:05] ✨ DECISION: FEWER VOICES (3 votes)
+[23:17:05]    complexity: 5.00 → 4.00
+[23:17:05] 🎵 Stella sings "ah"
+[23:17:05] GENERATING 6-SECOND LOOP
+[23:17:05] EXPORTED 6s loop
+[23:17:11] 🗳️  Luna votes to lower pitch
+[23:17:11] 🗳️  Sol votes to increase volume
+[23:17:11] 🗳️  Aurora votes to add fade effect
+[23:17:11] 🗳️  Nimbus votes to add more voices
+[23:17:11] 🗳️  Echo votes to lower pitch
+[23:17:11] 🗳️  Stella votes to fewer voices
+[23:17:11] ✨ DECISION: LOWER PITCH (2 votes)
+[23:17:11]    pitch_shift: -20.00 → -40.00
+[23:17:11] 🎵 Echo sings "ii"
+[23:17:11] GENERATING 6-SECOND LOOP
+[23:17:11] EXPORTED 6s loop
+[23:17:17] 🗳️  Luna votes to add fade effect
+[23:17:17] 🗳️  Sol votes to decrease volume
+[23:17:17] 🗳️  Aurora votes to raise pitch
+[23:17:17] 🗳️  Nimbus votes to increase volume
+[23:17:17] 🗳️  Echo votes to add fade effect
+[23:17:17] 🗳️  Stella votes to add more voices
+[23:17:17] ✨ DECISION: ADD FADE EFFECT (2 votes)
+[23:17:17]    decay: 0.40 → 0.55
+[23:17:17] 🎵 Sol sings "mimimi"
+[23:17:17] GENERATING 6-SECOND LOOP
+[23:17:17] EXPORTED 6s loop
+[23:17:23] 🗳️  Luna votes to add more voices
+[23:17:23] 🗳️  Sol votes to add more voices
+[23:17:23] 🗳️  Aurora votes to decrease volume
+[23:17:23] 🗳️  Nimbus votes to add more voices
+[23:17:23] 🗳️  Echo votes to raise pitch
+[23:17:23] 🗳️  Stella votes to lower pitch
+[23:17:23] ✨ DECISION: ADD MORE VOICES (3 votes)
+[23:17:23]    complexity: 4.00 → 5.00
+[23:17:23] 🎵 Luna sings "oofoof"
+[23:17:23] GENERATING 6-SECOND LOOP
+[23:17:23] EXPORTED 6s loop
+[23:17:29] 🗳️  Luna votes to decrease volume
+[23:17:29] 🗳️  Sol votes to raise pitch
+[23:17:29] 🗳️  Aurora votes to lower pitch
+[23:17:29] 🗳️  Nimbus votes to fewer voices
+[23:17:29] 🗳️  Echo votes to lower pitch
+[23:17:29] 🗳️  Stella votes to decrease volume
+[23:17:29] ✨ DECISION: LOWER PITCH (2 votes)
+[23:17:29]    pitch_shift: -40.00 → -60.00
+[23:17:29] 🎵 Aurora sings "da"
+[23:17:29] GENERATING 6-SECOND LOOP
+[23:17:29] EXPORTED 6s loop
+[23:17:35] 🗳️  Luna votes to reduce fade
+[23:17:35] 🗳️  Sol votes to increase volume
+[23:17:35] 🗳️  Aurora votes to add fade effect
+[23:17:35] 🗳️  Nimbus votes to fewer voices
+[23:17:35] 🗳️  Echo votes to fewer voices
+[23:17:35] 🗳️  Stella votes to decrease volume
+[23:17:35] ✨ DECISION: FEWER VOICES (2 votes)
+[23:17:35]    complexity: 5.00 → 4.00
+[23:17:35] 🎵 Stella sings "momo"
+[23:17:35] GENERATING 6-SECOND LOOP
+[23:17:35] EXPORTED 6s loop
+[23:17:41] 🗳️  Luna votes to fewer voices
+[23:17:41] 🗳️  Sol votes to add fade effect
+[23:17:41] 🗳️  Aurora votes to raise pitch
+[23:17:41] 🗳️  Nimbus votes to increase volume
+[23:17:41] 🗳️  Echo votes to add more voices
+[23:17:41] 🗳️  Stella votes to raise pitch
+[23:17:41] ✨ DECISION: RAISE PITCH (2 votes)
+[23:17:41]    pitch_shift: -60.00 → -40.00
+[23:17:41] 🎵 Nimbus sings "o"
+[23:17:41] GENERATING 6-SECOND LOOP
+[23:17:41] EXPORTED 6s loop
+[23:17:47] 🗳️  Luna votes to raise pitch
+[23:17:47] 🗳️  Sol votes to fewer voices
+[23:17:47] 🗳️  Aurora votes to decrease volume
+[23:17:47] 🗳️  Nimbus votes to decrease volume
+[23:17:47] 🗳️  Echo votes to add more voices
+[23:17:47] 🗳️  Stella votes to add more voices
+[23:17:47] ✨ DECISION: DECREASE VOLUME (2 votes)
+[23:17:47]    volume_boost: 1.90 → 1.80
+[23:17:47] 🎵 Nimbus sings "ee"
+[23:17:47] GENERATING 6-SECOND LOOP
+[23:17:47] EXPORTED 6s loop
+[23:17:53] 🗳️  Luna votes to raise pitch
+[23:17:53] 🗳️  Sol votes to increase volume
+[23:17:53] 🗳️  Aurora votes to increase volume
+[23:17:53] 🗳️  Nimbus votes to raise pitch
+[23:17:53] 🗳️  Echo votes to reduce fade
+[23:17:53] 🗳️  Stella votes to lower pitch
+[23:17:53] ✨ DECISION: INCREASE VOLUME (2 votes)
+[23:17:53]    volume_boost: 1.80 → 1.90
+[23:17:53] 🎵 Luna sings "humhumhum"
+[23:17:53] GENERATING 6-SECOND LOOP
+[23:17:53] EXPORTED 6s loop
+[23:17:59] 🗳️  Luna votes to add more voices
+[23:17:59] 🗳️  Sol votes to lower pitch
+[23:17:59] 🗳️  Aurora votes to raise pitch
+[23:17:59] 🗳️  Nimbus votes to add more voices
+[23:17:59] 🗳️  Echo votes to add more voices
+[23:17:59] 🗳️  Stella votes to add more voices
+[23:17:59] ✨ DECISION: ADD MORE VOICES (4 votes)
+[23:17:59]    complexity: 4.00 → 5.00
+[23:17:59] 🎵 Nimbus sings "ro"
+[23:17:59] GENERATING 6-SECOND LOOP
+[23:17:59] EXPORTED 6s loop
+[23:18:05] 🗳️  Luna votes to fewer voices
+[23:18:05] 🗳️  Sol votes to increase volume
+[23:18:05] 🗳️  Aurora votes to raise pitch
+[23:18:05] 🗳️  Nimbus votes to decrease volume
+[23:18:05] 🗳️  Echo votes to decrease volume
+[23:18:05] 🗳️  Stella votes to reduce fade
+[23:18:05] ✨ DECISION: DECREASE VOLUME (2 votes)
+[23:18:05]    volume_boost: 1.90 → 1.80
+[23:18:05] 🎵 Aurora sings "yay"
+[23:18:05] GENERATING 6-SECOND LOOP
+[23:18:05] EXPORTED 6s loop
+[23:18:11] 🗳️  Luna votes to raise pitch
+[23:18:11] 🗳️  Sol votes to add fade effect
+[23:18:11] 🗳️  Aurora votes to reduce fade
+[23:18:11] 🗳️  Nimbus votes to add fade effect
+[23:18:11] 🗳️  Echo votes to raise pitch
+[23:18:11] 🗳️  Stella votes to fewer voices
+[23:18:11] ✨ DECISION: ADD FADE EFFECT (2 votes)
+[23:18:11]    decay: 0.55 → 0.70
+[23:18:11] 🎵 Stella sings "e"
+[23:18:11] GENERATING 6-SECOND LOOP
+[23:18:11] EXPORTED 6s loop
