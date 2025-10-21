@@ -13,7 +13,8 @@ An experimental generative audio web application that creates evolving 6-second 
   - Lowered all frequencies by 50% for deeper, warmer, more meditative tones
   - Added subtle sub-harmonics for depth and upper harmonics for ethereal shimmer
   - Extended fade times to 500ms with curved envelopes for ultra-smooth transitions
-  - Sounds overlap for 4 seconds each creating continuous, flowing ambience
+  - Dynamic sound duration ensures continuous coverage: single voice fills full 6s, multiple voices overlap deeply
+  - Fixed silence gaps: sounds now guaranteed to fill entire loop regardless of complexity setting
   - Reduced gain for gentle, non-jarring listening experience
   - Made UI fully mobile-responsive with adaptive sizing and layouts
   - Automatic normalization to prevent audio clipping
