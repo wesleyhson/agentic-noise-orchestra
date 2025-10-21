@@ -87,6 +87,29 @@ def get_log():
         lines = f.readlines()[-100:]
     return "".join(f"<div class='logline'>{line.rstrip()}</div>" for line in lines)
 
+def generate_waveform(waveform_type, freq, t):
+    """Generate soft, hypnotic waveforms"""
+    # Primarily use sine waves for smoothness
+    base = np.sin(2 * np.pi * freq * t)
+    
+    if waveform_type == "dreamy":
+        # Add gentle vibrato for hypnotic effect
+        vibrato = np.sin(2 * np.pi * 2.5 * t) * 0.08
+        return np.sin(2 * np.pi * freq * t * (1 + vibrato))
+    elif waveform_type == "soft":
+        # Soft sine with subtle phase modulation
+        phase_mod = np.sin(2 * np.pi * 0.5 * t) * 0.1
+        return np.sin(2 * np.pi * freq * t + phase_mod)
+    elif waveform_type == "ambient":
+        # Multiple soft harmonics for depth
+        return (np.sin(2 * np.pi * freq * t) + 
+                np.sin(2 * np.pi * freq * 0.5 * t) * 0.3 +
+                np.sin(2 * np.pi * freq * 1.5 * t) * 0.2)
+    else:  # "gentle"
+        # Gentle tremolo effect
+        tremolo = 0.8 + 0.2 * np.sin(2 * np.pi * 3 * t)
+        return np.sin(2 * np.pi * freq * t) * tremolo
+
 def generate_audio():
     global last_update
     log("GENERATING 6-SECOND LOOP")
@@ -101,25 +124,69 @@ def generate_audio():
     t = np.linspace(0, duration_seconds, int(SAMPLE_RATE * duration_seconds), endpoint=False)
     mix = np.zeros(len(t))
 
-    for idx, entry in enumerate(recent):
-        agent = entry["agent"]
-        phoneme = entry["phoneme"]
-        # Apply global pitch shift
-        freq = INSTRUMENTS[agent]["freq"] + len(phoneme) * 10 + SOUND_PARAMS["pitch_shift"]
-        # Apply volume boost
-        gain = INSTRUMENTS[agent]["gain"] * SOUND_PARAMS["volume_boost"]
-        start_time = idx * 1.0
-        end_time = start_time + 1.0
-        mask = (t >= start_time) & (t < end_time)
-        wave = np.sin(2 * np.pi * freq * t[mask])
+    # Spread sounds across the full 6 seconds with overlap for continuous sound
+    num_voices = len(recent)
+    if num_voices > 0:
+        # Ensure sounds always fill the full 6 seconds - adjust duration based on voice count
+        if num_voices == 1:
+            sound_duration = 6.0  # Single voice fills entire loop
+            time_spacing = 0
+        else:
+            sound_duration = max(4.0, 6.0 / num_voices + 2.0)  # Overlap to ensure no gaps
+            time_spacing = 6.0 / num_voices  # Evenly spread across 6 seconds
         
-        # Apply decay effect if enabled
-        if SOUND_PARAMS["decay"] > 0:
-            decay_envelope = np.linspace(1.0, 1.0 - SOUND_PARAMS["decay"], len(t[mask]))
-            wave = wave * decay_envelope
+        # Soft, hypnotic waveform types
+        waveforms = ["dreamy", "soft", "ambient", "gentle"]
         
-        mix[mask] += gain * wave
+        for idx, entry in enumerate(recent):
+            agent = entry["agent"]
+            phoneme = entry["phoneme"]
+            
+            # Lower frequencies for softer, deeper, more hypnotic sound
+            base_freq = (INSTRUMENTS[agent]["freq"] * 0.5 + len(phoneme) * 3 + SOUND_PARAMS["pitch_shift"])
+            base_freq = max(55, min(440, base_freq))  # Keep in comfortable range (55-440 Hz)
+            
+            # Softer volume for gentle ambient sound
+            gain = INSTRUMENTS[agent]["gain"] * SOUND_PARAMS["volume_boost"] * 0.35
+            
+            # Start time spread across 6 seconds
+            start_time = idx * time_spacing
+            end_time = min(start_time + sound_duration, duration_seconds)
+            mask = (t >= start_time) & (t < end_time)
+            
+            # Choose waveform based on phoneme for variety
+            waveform_idx = hash(phoneme) % len(waveforms)
+            waveform_type = waveforms[waveform_idx]
+            
+            # Generate soft, hypnotic base wave
+            wave = generate_waveform(waveform_type, base_freq, t[mask] - start_time)
+            
+            # Add subtle lower octave for depth and warmth
+            sub_harmonic = np.sin(2 * np.pi * base_freq * 0.5 * (t[mask] - start_time)) * 0.25
+            # Add gentle higher harmonics for shimmer
+            upper_harmonic = np.sin(2 * np.pi * base_freq * 2 * (t[mask] - start_time)) * 0.15
+            wave = wave + sub_harmonic + upper_harmonic
+            
+            # Apply long, smooth fade in/out envelope for dreamy effect
+            envelope = np.ones(len(t[mask]))
+            fade_samples = int(SAMPLE_RATE * 0.5)  # 500ms fade for smoothness
+            if len(envelope) > fade_samples * 2:
+                envelope[:fade_samples] = np.linspace(0, 1, fade_samples) ** 2  # Gentle curve
+                envelope[-fade_samples:] = (np.linspace(1, 0, fade_samples)) ** 2
+            wave = wave * envelope
+            
+            # Apply reverb-like decay effect if enabled
+            if SOUND_PARAMS["decay"] > 0:
+                decay_envelope = np.linspace(1.0, 1.0 - SOUND_PARAMS["decay"], len(t[mask])) ** 1.5
+                wave = wave * decay_envelope
+            
+            mix[mask] += gain * wave
 
+    # Normalize to prevent clipping
+    max_val = np.max(np.abs(mix))
+    if max_val > 0:
+        mix = mix / max_val * 0.8
+    
     mix = (mix * 32767).astype(np.int16)
     wav_io = BytesIO()
     wavfile.write(wav_io, SAMPLE_RATE, mix)

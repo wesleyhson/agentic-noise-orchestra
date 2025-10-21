@@ -8,6 +8,15 @@ An experimental generative audio web application that creates evolving 6-second 
 **Last Updated**: October 21, 2025
 
 ## Recent Changes
+- **October 21, 2025**: Redesigned for soft, hypnotic, pseudofuturistic soundscapes
+  - Created 4 ambient waveform types: dreamy (vibrato), soft (phase modulation), ambient (harmonics), gentle (tremolo)
+  - Lowered all frequencies by 50% for deeper, warmer, more meditative tones
+  - Added subtle sub-harmonics for depth and upper harmonics for ethereal shimmer
+  - Extended fade times to 500ms with curved envelopes for ultra-smooth transitions
+  - Sounds overlap for 4 seconds each creating continuous, flowing ambience
+  - Reduced gain for gentle, non-jarring listening experience
+  - Made UI fully mobile-responsive with adaptive sizing and layouts
+  - Automatic normalization to prevent audio clipping
 - **October 21, 2025**: Fixed critical production deployment bug
   - Background voting thread now starts correctly in production (gunicorn)
   - App is now fully functional when deployed, not just in development
