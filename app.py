@@ -40,7 +40,26 @@ PHONEMES = [
     "wow", "yay", "oof", "bah", "doh"
 ]
 
-volume_boost = 0.5
+# SOUND PARAMETERS (modified by voting)
+SOUND_PARAMS = {
+    "volume_boost": 0.5,      # Overall mix volume
+    "complexity": 6,          # How many agents can sing at once
+    "pitch_shift": 0,         # Global pitch adjustment in Hz
+    "decay": 0.0,             # Fade out effect (0 = none, 1 = strong)
+}
+
+# VOTING OPTIONS for sound parameters
+VOTE_OPTIONS = {
+    "LOUDER": {"param": "volume_boost", "change": +0.1, "desc": "increase volume"},
+    "QUIETER": {"param": "volume_boost", "change": -0.1, "desc": "decrease volume"},
+    "MORE_COMPLEX": {"param": "complexity", "change": +1, "desc": "add more voices"},
+    "SIMPLER": {"param": "complexity", "change": -1, "desc": "fewer voices"},
+    "PITCH_UP": {"param": "pitch_shift", "change": +20, "desc": "raise pitch"},
+    "PITCH_DOWN": {"param": "pitch_shift", "change": -20, "desc": "lower pitch"},
+    "ADD_DECAY": {"param": "decay", "change": +0.15, "desc": "add fade effect"},
+    "LESS_DECAY": {"param": "decay", "change": -0.15, "desc": "reduce fade"},
+}
+
 last_update = 0
 
 def log(message):
@@ -74,7 +93,9 @@ def generate_audio():
     recent = []
     if os.path.exists(SOUND_LOG):
         with open(SOUND_LOG) as f:
-            recent = [json.loads(l) for l in f.readlines()[-MAX_TRACKS:]]
+            # Use complexity parameter to limit voices
+            max_voices = max(1, min(10, int(SOUND_PARAMS["complexity"])))
+            recent = [json.loads(l) for l in f.readlines()[-max_voices:]]
 
     duration_seconds = 6
     t = np.linspace(0, duration_seconds, int(SAMPLE_RATE * duration_seconds), endpoint=False)
@@ -83,12 +104,20 @@ def generate_audio():
     for idx, entry in enumerate(recent):
         agent = entry["agent"]
         phoneme = entry["phoneme"]
-        freq = INSTRUMENTS[agent]["freq"] + len(phoneme) * 10
-        gain = INSTRUMENTS[agent]["gain"] * volume_boost
+        # Apply global pitch shift
+        freq = INSTRUMENTS[agent]["freq"] + len(phoneme) * 10 + SOUND_PARAMS["pitch_shift"]
+        # Apply volume boost
+        gain = INSTRUMENTS[agent]["gain"] * SOUND_PARAMS["volume_boost"]
         start_time = idx * 1.0
         end_time = start_time + 1.0
         mask = (t >= start_time) & (t < end_time)
         wave = np.sin(2 * np.pi * freq * t[mask])
+        
+        # Apply decay effect if enabled
+        if SOUND_PARAMS["decay"] > 0:
+            decay_envelope = np.linspace(1.0, 1.0 - SOUND_PARAMS["decay"], len(t[mask]))
+            wave = wave * decay_envelope
+        
         mix[mask] += gain * wave
 
     mix = (mix * 32767).astype(np.int16)
@@ -105,44 +134,70 @@ def auto_cycle():
     while True:
         time.sleep(6)
         
-        # VOTING: Each agent votes for who should sing next
+        # VOTING: Each agent votes on how to modify sound parameters
         all_agents = list(INSTRUMENTS.keys())
         votes = {}
+        option_names = list(VOTE_OPTIONS.keys())
+        
         for voter in all_agents:
-            candidate = random.choice(all_agents)
-            votes[voter] = candidate
-            log(f"🗳️  {voter} votes for {candidate}")
+            choice = random.choice(option_names)
+            votes[voter] = choice
+            log(f"🗳️  {voter} votes to {VOTE_OPTIONS[choice]['desc']}")
         
         # Count votes
         vote_counts = {}
-        for candidate in votes.values():
-            vote_counts[candidate] = vote_counts.get(candidate, 0) + 1
+        for option in votes.values():
+            vote_counts[option] = vote_counts.get(option, 0) + 1
         
         # Find winner (most votes, random if tie)
         if vote_counts:
             max_votes = max(vote_counts.values())
-            winners = [agent for agent, count in vote_counts.items() if count == max_votes]
-            agent = random.choice(winners)
-            winner_votes = vote_counts[agent]
+            winners = [opt for opt, count in vote_counts.items() if count == max_votes]
+            winning_option = random.choice(winners)
+            winner_votes = vote_counts[winning_option]
         else:
-            # Fallback if no votes (shouldn't happen, but safety first)
-            agent = random.choice(all_agents)
+            # Fallback
+            winning_option = random.choice(option_names)
             winner_votes = 0
+        
+        # Apply the winning sound parameter change with proper bounds
+        param_info = VOTE_OPTIONS[winning_option]
+        param_name = param_info["param"]
+        change = param_info["change"]
+        old_value = SOUND_PARAMS[param_name]
+        new_value = SOUND_PARAMS[param_name] + change
+        
+        # Apply parameter-specific bounds
+        if param_name == "volume_boost":
+            new_value = max(0.1, min(2.0, new_value))  # 0.1 to 2.0
+        elif param_name == "complexity":
+            new_value = max(1, min(10, int(new_value)))  # 1 to 10 voices
+        elif param_name == "pitch_shift":
+            new_value = max(-200, min(200, new_value))  # -200 to +200 Hz
+        elif param_name == "decay":
+            new_value = max(0.0, min(1.0, new_value))  # 0 to 1 (no decay to full fade)
+        
+        SOUND_PARAMS[param_name] = new_value
         
         # Log voting result
         vote_entry = {
             "votes": votes,
-            "winner": agent,
+            "winner": winning_option,
             "vote_count": winner_votes,
+            "param": param_name,
+            "old_value": old_value,
+            "new_value": SOUND_PARAMS[param_name],
             "ts": time.time()
         }
         with open(VOTE_LOG, "a") as f:
             json.dump(vote_entry, f)
             f.write("\n")
         
-        log(f"✨ {agent} WINS with {winner_votes} votes!")
+        log(f"✨ DECISION: {param_info['desc'].upper()} ({winner_votes} votes)")
+        log(f"   {param_name}: {old_value:.2f} → {SOUND_PARAMS[param_name]:.2f}")
         
-        # Choose vocalization
+        # Now pick a random agent to sing
+        agent = random.choice(all_agents)
         phoneme = random.choice(PHONEMES)
         if random.random() > 0.7:  # 30% chance of repeating
             phoneme = phoneme * random.randint(2, 4)
