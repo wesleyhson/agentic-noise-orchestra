@@ -84,7 +84,7 @@ def get_log():
     if not os.path.exists(LOG_FILE):
         return ""
     with open(LOG_FILE) as f:
-        lines = f.readlines()[-30:]
+        lines = f.readlines()[-100:]
     return "".join(f"<div class='logline'>{line.rstrip()}</div>" for line in lines)
 
 def generate_audio():
