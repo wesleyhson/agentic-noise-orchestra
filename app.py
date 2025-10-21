@@ -1,41 +1,35 @@
-# PATCH PYDUB FIRST
-exec(open('pydub_patch.py').read())
-
 from flask import Flask, send_file, render_template
 import os
 import json
 import time
 import random
 import threading
-from pydub import AudioSegment
-from pydub.generators import Sine, Triangle, Sawtooth
+import numpy as np
+from scipy.io import wavfile
+from io import BytesIO
 
 app = Flask(__name__, template_folder='.')
 
 # CONFIG
 SOUND_LOG   = "sounds.jsonl"
-OUTPUT_MP3  = "output.mp3"
-VOTE_LOG    = "votes.jsonl"
+OUTPUT_MP3  = "output.wav"  # Use WAV for simplicity
 LOG_FILE    = "terminal_log.txt"
 MAX_TRACKS  = 6
 BASE_DURATION_MS = 6000
+SAMPLE_RATE = 44100
 
 # 6 AGENTS
 INSTRUMENTS = {
-    "Luna":     {"base_freq": 220, "gain": -14},
-    "Sol":      {"base_freq": 110, "gain": -10},
-    "Aurora":   {"base_freq": 880, "gain": -8},
-    "Nimbus":   {"base_freq": 330, "gain": -12},
-    "Echo":     {"base_freq": 440, "gain": -11},
-    "Stella":   {"base_freq": 660, "gain": -9},
+    "Luna":     {"freq": 220, "gain": 0.3},
+    "Sol":      {"freq": 110, "gain": 0.4},
+    "Aurora":   {"freq": 880, "gain": 0.3},
+    "Nimbus":   {"freq": 330, "gain": 0.4},
+    "Echo":     {"freq": 440, "gain": 0.3},
+    "Stella":   {"freq": 660, "gain": 0.3},
 }
 
-VOTE_OPTIONS = ["louder", "softer", "higher", "lower", "slower", "faster"]
-
 # STATE
-volume_boost = 0
-pitch_shift = 0
-tempo_factor = 1.0
+volume_boost = 0.5
 last_update = 0
 
 def log(message):
@@ -53,7 +47,7 @@ def index():
 def stream():
     if not os.path.exists(OUTPUT_MP3):
         return "", 404
-    return send_file(OUTPUT_MP3, mimetype="audio/mpeg")
+    return send_file(OUTPUT_MP3, mimetype="audio/wav")
 
 @app.route("/log")
 def get_log():
@@ -71,54 +65,44 @@ def generate_audio():
         with open(SOUND_LOG) as f:
             recent = [json.loads(l) for l in f.readlines()[-MAX_TRACKS:]]
 
-    mix = AudioSegment.silent(duration=BASE_DURATION_MS)
+    # Create 6-second audio
+    duration_seconds = 6
+    t = np.linspace(0, duration_seconds, int(SAMPLE_RATE * duration_seconds), endpoint=False)
+
+    # Mix all sounds
+    mix = np.zeros(len(t))
 
     for idx, entry in enumerate(recent):
-        phoneme = entry["phoneme"]
         agent = entry["agent"]
-        base_freq = INSTRUMENTS[agent]["base_freq"]
-        gain = INSTRUMENTS[agent]["gain"]
-        position_ms = idx * 1000
+        phoneme = entry["phoneme"]
+        freq = INSTRUMENTS[agent]["freq"] + len(phoneme) * 10
+        gain = INSTRUMENTS[agent]["gain"] * volume_boost
+        start_time = idx * 1.0  # 1 second per agent
+        end_time = start_time + 1.0
 
-        duration = min(2000, len(phoneme) * 200 + 600)
-        freq = (base_freq + len(phoneme) * 20 + pitch_shift) * tempo_factor
-        if "o" in phoneme: freq *= 1.5
-        if "i" in phoneme: freq *= 2
+        # Sine wave for this agent
+        mask = (t >= start_time) & (t < end_time)
+        wave = np.sin(2 * np.pi * freq * t[mask])
+        mix[mask] += gain * wave
 
-        if agent == "Luna":
-            sound = Triangle(freq).to_audio_segment(int(duration*tempo_factor)).low_pass_filter(800).apply_gain(gain).fade_in(200).fade_out(300)
-        elif agent == "Sol":
-            sound = Sine(freq * 0.5).to_audio_segment(int(duration*tempo_factor)).low_pass_filter(200).apply_gain(gain).fade_in(100)
-        elif agent == "Aurora":
-            sound = Sine(freq * 2).to_audio_segment(1600).apply_gain(gain).fade_out(800)
-        elif agent == "Nimbus":
-            chord = sum(Sine(f).to_audio_segment(int(duration*tempo_factor)).apply_gain(gain-3) for f in [freq, freq*1.25, freq*1.5])
-            sound = chord.low_pass_filter(1200).fade_in(300).fade_out(400)
-        elif agent == "Echo":
-            sound = Sawtooth(freq).to_audio_segment(int(duration*tempo_factor)).low_pass_filter(1500).apply_gain(gain).fade_in(200).fade_out(500)
-        elif agent == "Stella":
-            sound = Sine(freq * 3).to_audio_segment(2000).apply_gain(gain).fade_out(1000)
-        else:
-            continue
+    mix = (mix * 32767).astype(np.int16)
 
-        sound = sound.apply_gain(volume_boost)
-        mix = mix.overlay(sound, position_ms)
-
-    try:
-        mix = mix.apply_gain(4)
-        mix.export(OUTPUT_MP3, format="mp3")
-        last_update = time.time()
-        log(f"EXPORTED 6s loop ({os.path.getsize(OUTPUT_MP3)} bytes)")
-    except Exception as e:
-        log(f"EXPORT FAILED: {e}")
+    # Save WAV
+    wav_io = BytesIO()
+    wavfile.write(wav_io, SAMPLE_RATE, mix)
+    wav_io.seek(0)
+    with open(OUTPUT_MP3, 'wb') as f:
+        f.write(wav_io.getvalue())
+    last_update = time.time()
+    log(f"EXPORTED 6s loop")
 
 def auto_cycle():
     log("AUTO CYCLE STARTED")
     while True:
         time.sleep(6)
         agent = random.choice(list(INSTRUMENTS.keys()))
-        phoneme = random.choice(["o", "a", "i", "u", "e", "m", "n", "s"]) * random.randint(1, 4)
-        entry = {"phoneme": phoneme, "agent": agent, "ts": time.time()}
+        phoneme = random.choice(["o", "a", "i", "u", "e"]) * random.randint(1, 4)
+        entry = {"agent": agent, "phoneme": phoneme, "ts": time.time()}
         with open(SOUND_LOG, "a") as f:
             json.dump(entry, f)
             f.write("\n")
@@ -132,8 +116,8 @@ if __name__ == "__main__":
     log("AGENTIC NOISE ORCHESTRA — INITIALIZING")
     for _ in range(3):
         agent = random.choice(list(INSTRUMENTS.keys()))
-        phoneme = random.choice(["o", "a", "i", "u", "e", "m", "n", "s"]) * random.randint(1, 4)
-        entry = {"phoneme": phoneme, "agent": agent, "ts": time.time()}
+        phoneme = random.choice(["o", "a", "i", "u", "e"]) * random.randint(1, 4)
+        entry = {"agent": agent, "phoneme": phoneme, "ts": time.time()}
         with open(SOUND_LOG, "a") as f:
             json.dump(entry, f)
             f.write("\n")
@@ -141,4 +125,4 @@ if __name__ == "__main__":
         time.sleep(0.5)
     generate_audio()
     threading.Thread(target=auto_cycle, daemon=True).start()
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
