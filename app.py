@@ -29,6 +29,17 @@ INSTRUMENTS = {
     "Stella":   {"freq": 660, "gain": 0.3},
 }
 
+# EXPANDED VOCALIZATIONS
+PHONEMES = [
+    "o", "a", "i", "u", "e",
+    "ah", "oh", "ee", "oo", "eh",
+    "la", "na", "ma", "ra", "da",
+    "lo", "no", "mo", "ro", "do",
+    "li", "ni", "mi", "ri", "di",
+    "hum", "hmm", "ahh", "ooo", "eee",
+    "wow", "yay", "oof", "bah", "doh"
+]
+
 volume_boost = 0.5
 last_update = 0
 
@@ -93,13 +104,54 @@ def auto_cycle():
     log("AUTO CYCLE STARTED")
     while True:
         time.sleep(6)
-        agent = random.choice(list(INSTRUMENTS.keys()))
-        phoneme = random.choice(["o", "a", "i", "u", "e"]) * random.randint(1, 4)
+        
+        # VOTING: Each agent votes for who should sing next
+        all_agents = list(INSTRUMENTS.keys())
+        votes = {}
+        for voter in all_agents:
+            candidate = random.choice(all_agents)
+            votes[voter] = candidate
+            log(f"🗳️  {voter} votes for {candidate}")
+        
+        # Count votes
+        vote_counts = {}
+        for candidate in votes.values():
+            vote_counts[candidate] = vote_counts.get(candidate, 0) + 1
+        
+        # Find winner (most votes, random if tie)
+        if vote_counts:
+            max_votes = max(vote_counts.values())
+            winners = [agent for agent, count in vote_counts.items() if count == max_votes]
+            agent = random.choice(winners)
+            winner_votes = vote_counts[agent]
+        else:
+            # Fallback if no votes (shouldn't happen, but safety first)
+            agent = random.choice(all_agents)
+            winner_votes = 0
+        
+        # Log voting result
+        vote_entry = {
+            "votes": votes,
+            "winner": agent,
+            "vote_count": winner_votes,
+            "ts": time.time()
+        }
+        with open(VOTE_LOG, "a") as f:
+            json.dump(vote_entry, f)
+            f.write("\n")
+        
+        log(f"✨ {agent} WINS with {winner_votes} votes!")
+        
+        # Choose vocalization
+        phoneme = random.choice(PHONEMES)
+        if random.random() > 0.7:  # 30% chance of repeating
+            phoneme = phoneme * random.randint(2, 4)
+        
         entry = {"agent": agent, "phoneme": phoneme, "ts": time.time()}
         with open(SOUND_LOG, "a") as f:
             json.dump(entry, f)
             f.write("\n")
-        log(f"{agent} sings \"{phoneme}\"")
+        log(f"🎵 {agent} sings \"{phoneme}\"")
         generate_audio()
 
 if __name__ == "__main__":
@@ -109,12 +161,14 @@ if __name__ == "__main__":
     log("AGENTIC NOISE ORCHESTRA — INITIALIZING")
     for _ in range(3):
         agent = random.choice(list(INSTRUMENTS.keys()))
-        phoneme = random.choice(["o", "a", "i", "u", "e"]) * random.randint(1, 4)
+        phoneme = random.choice(PHONEMES)
+        if random.random() > 0.7:
+            phoneme = phoneme * random.randint(2, 3)
         entry = {"agent": agent, "phoneme": phoneme, "ts": time.time()}
         with open(SOUND_LOG, "a") as f:
             json.dump(entry, f)
             f.write("\n")
-        log(f"{agent} sings \"{phoneme}\"")
+        log(f"🎵 {agent} sings \"{phoneme}\"")
         time.sleep(0.5)
     generate_audio()
     threading.Thread(target=auto_cycle, daemon=True).start()

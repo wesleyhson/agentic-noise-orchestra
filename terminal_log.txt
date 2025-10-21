@@ -1,97 +1,87 @@
-[21:47:34] AGENTIC NOISE ORCHESTRA — INITIALIZING
-[21:47:34] Aurora sings "ooo"
-[21:47:35] Aurora sings "eeee"
-[21:47:35] Nimbus sings "oooo"
-[21:47:36] GENERATING 6-SECOND LOOP
-[21:47:36] EXPORTED 6s loop
-[21:47:36] AUTO CYCLE STARTED
-[21:47:42] Sol sings "iii"
-[21:47:42] GENERATING 6-SECOND LOOP
-[21:47:42] EXPORTED 6s loop
-[21:47:48] Stella sings "uuu"
-[21:47:48] GENERATING 6-SECOND LOOP
-[21:47:48] EXPORTED 6s loop
-[21:47:54] Stella sings "eee"
-[21:47:54] GENERATING 6-SECOND LOOP
-[21:47:54] EXPORTED 6s loop
-[21:48:00] Stella sings "u"
-[21:48:00] GENERATING 6-SECOND LOOP
-[21:48:00] EXPORTED 6s loop
-[21:48:06] Sol sings "eeee"
-[21:48:06] GENERATING 6-SECOND LOOP
-[21:48:06] EXPORTED 6s loop
-[21:48:12] Nimbus sings "eee"
-[21:48:12] GENERATING 6-SECOND LOOP
-[21:48:12] EXPORTED 6s loop
-[21:48:18] Stella sings "a"
-[21:48:18] GENERATING 6-SECOND LOOP
-[21:48:18] EXPORTED 6s loop
-[21:48:24] Stella sings "oooo"
-[21:48:24] GENERATING 6-SECOND LOOP
-[21:48:24] EXPORTED 6s loop
-[21:48:30] Nimbus sings "aaaa"
-[21:48:30] GENERATING 6-SECOND LOOP
-[21:48:30] EXPORTED 6s loop
-[21:48:36] Nimbus sings "e"
-[21:48:36] GENERATING 6-SECOND LOOP
-[21:48:36] EXPORTED 6s loop
-[21:48:42] Nimbus sings "eee"
-[21:48:42] GENERATING 6-SECOND LOOP
-[21:48:42] EXPORTED 6s loop
-[21:48:48] Echo sings "oo"
-[21:48:48] GENERATING 6-SECOND LOOP
-[21:48:48] EXPORTED 6s loop
-[21:48:54] Echo sings "aa"
-[21:48:54] GENERATING 6-SECOND LOOP
-[21:48:54] EXPORTED 6s loop
-[21:49:00] Sol sings "ii"
-[21:49:00] GENERATING 6-SECOND LOOP
-[21:49:00] EXPORTED 6s loop
-[21:49:06] Luna sings "ooo"
-[21:49:06] GENERATING 6-SECOND LOOP
-[21:49:06] EXPORTED 6s loop
-[21:49:12] Sol sings "e"
-[21:49:12] GENERATING 6-SECOND LOOP
-[21:49:12] EXPORTED 6s loop
-[21:49:18] Aurora sings "e"
-[21:49:18] GENERATING 6-SECOND LOOP
-[21:49:18] EXPORTED 6s loop
-[21:49:24] Luna sings "iii"
-[21:49:24] GENERATING 6-SECOND LOOP
-[21:49:24] EXPORTED 6s loop
-[21:49:30] Aurora sings "a"
-[21:49:30] GENERATING 6-SECOND LOOP
-[21:49:30] EXPORTED 6s loop
-[21:49:36] Aurora sings "u"
-[21:49:36] GENERATING 6-SECOND LOOP
-[21:49:36] EXPORTED 6s loop
-[21:49:42] Aurora sings "uu"
-[21:49:42] GENERATING 6-SECOND LOOP
-[21:49:42] EXPORTED 6s loop
-[21:49:48] Sol sings "oo"
-[21:49:48] GENERATING 6-SECOND LOOP
-[21:49:48] EXPORTED 6s loop
-[21:49:54] Stella sings "ooo"
-[21:49:54] GENERATING 6-SECOND LOOP
-[21:49:54] EXPORTED 6s loop
-[21:50:00] Aurora sings "uuuu"
-[21:50:00] GENERATING 6-SECOND LOOP
-[21:50:00] EXPORTED 6s loop
-[21:50:06] Echo sings "uuuu"
-[21:50:06] GENERATING 6-SECOND LOOP
-[21:50:06] EXPORTED 6s loop
-[21:50:12] Nimbus sings "u"
-[21:50:12] GENERATING 6-SECOND LOOP
-[21:50:12] EXPORTED 6s loop
-[21:50:18] Sol sings "aaa"
-[21:50:18] GENERATING 6-SECOND LOOP
-[21:50:18] EXPORTED 6s loop
-[21:50:24] Stella sings "u"
-[21:50:24] GENERATING 6-SECOND LOOP
-[21:50:24] EXPORTED 6s loop
-[21:50:30] Echo sings "o"
-[21:50:30] GENERATING 6-SECOND LOOP
-[21:50:30] EXPORTED 6s loop
-[21:50:36] Aurora sings "eee"
-[21:50:36] GENERATING 6-SECOND LOOP
-[21:50:36] EXPORTED 6s loop
+[21:54:55] AGENTIC NOISE ORCHESTRA — INITIALIZING
+[21:54:55] 🎵 Stella sings "u"
+[21:54:55] 🎵 Nimbus sings "da"
+[21:54:56] 🎵 Echo sings "doh"
+[21:54:56] GENERATING 6-SECOND LOOP
+[21:54:56] EXPORTED 6s loop
+[21:54:56] AUTO CYCLE STARTED
+[21:55:02] 🗳️  Luna votes for Echo
+[21:55:02] 🗳️  Sol votes for Luna
+[21:55:02] 🗳️  Aurora votes for Sol
+[21:55:02] 🗳️  Nimbus votes for Stella
+[21:55:02] 🗳️  Echo votes for Aurora
+[21:55:02] 🗳️  Stella votes for Stella
+[21:55:02] ✨ Stella WINS with 2 votes!
+[21:55:02] 🎵 Stella sings "bahbahbahbah"
+[21:55:02] GENERATING 6-SECOND LOOP
+[21:55:02] EXPORTED 6s loop
+[21:55:08] 🗳️  Luna votes for Aurora
+[21:55:08] 🗳️  Sol votes for Stella
+[21:55:08] 🗳️  Aurora votes for Sol
+[21:55:08] 🗳️  Nimbus votes for Echo
+[21:55:08] 🗳️  Echo votes for Sol
+[21:55:08] 🗳️  Stella votes for Aurora
+[21:55:08] ✨ Aurora WINS with 2 votes!
+[21:55:08] 🎵 Aurora sings "u"
+[21:55:08] GENERATING 6-SECOND LOOP
+[21:55:08] EXPORTED 6s loop
+[21:55:14] 🗳️  Luna votes for Nimbus
+[21:55:14] 🗳️  Sol votes for Stella
+[21:55:14] 🗳️  Aurora votes for Luna
+[21:55:14] 🗳️  Nimbus votes for Nimbus
+[21:55:14] 🗳️  Echo votes for Luna
+[21:55:14] 🗳️  Stella votes for Echo
+[21:55:14] ✨ Luna WINS with 2 votes!
+[21:55:14] 🎵 Luna sings "i"
+[21:55:14] GENERATING 6-SECOND LOOP
+[21:55:14] EXPORTED 6s loop
+[21:55:20] 🗳️  Luna votes for Nimbus
+[21:55:20] 🗳️  Sol votes for Echo
+[21:55:20] 🗳️  Aurora votes for Sol
+[21:55:20] 🗳️  Nimbus votes for Stella
+[21:55:20] 🗳️  Echo votes for Echo
+[21:55:20] 🗳️  Stella votes for Stella
+[21:55:20] ✨ Stella WINS with 2 votes!
+[21:55:20] 🎵 Stella sings "u"
+[21:55:20] GENERATING 6-SECOND LOOP
+[21:55:20] EXPORTED 6s loop
+[21:55:26] 🗳️  Luna votes for Aurora
+[21:55:26] 🗳️  Sol votes for Stella
+[21:55:26] 🗳️  Aurora votes for Sol
+[21:55:26] 🗳️  Nimbus votes for Echo
+[21:55:26] 🗳️  Echo votes for Stella
+[21:55:26] 🗳️  Stella votes for Luna
+[21:55:26] ✨ Stella WINS with 2 votes!
+[21:55:26] 🎵 Stella sings "u"
+[21:55:26] GENERATING 6-SECOND LOOP
+[21:55:26] EXPORTED 6s loop
+[21:55:32] 🗳️  Luna votes for Nimbus
+[21:55:32] 🗳️  Sol votes for Stella
+[21:55:32] 🗳️  Aurora votes for Sol
+[21:55:32] 🗳️  Nimbus votes for Aurora
+[21:55:32] 🗳️  Echo votes for Nimbus
+[21:55:32] 🗳️  Stella votes for Aurora
+[21:55:32] ✨ Aurora WINS with 2 votes!
+[21:55:32] 🎵 Aurora sings "ri"
+[21:55:32] GENERATING 6-SECOND LOOP
+[21:55:32] EXPORTED 6s loop
+[21:55:38] 🗳️  Luna votes for Nimbus
+[21:55:38] 🗳️  Sol votes for Stella
+[21:55:38] 🗳️  Aurora votes for Stella
+[21:55:38] 🗳️  Nimbus votes for Sol
+[21:55:38] 🗳️  Echo votes for Sol
+[21:55:38] 🗳️  Stella votes for Nimbus
+[21:55:38] ✨ Stella WINS with 2 votes!
+[21:55:38] 🎵 Stella sings "mimi"
+[21:55:38] GENERATING 6-SECOND LOOP
+[21:55:38] EXPORTED 6s loop
+[21:55:44] 🗳️  Luna votes for Luna
+[21:55:44] 🗳️  Sol votes for Luna
+[21:55:44] 🗳️  Aurora votes for Luna
+[21:55:44] 🗳️  Nimbus votes for Nimbus
+[21:55:44] 🗳️  Echo votes for Nimbus
+[21:55:44] 🗳️  Stella votes for Echo
+[21:55:44] ✨ Luna WINS with 3 votes!
+[21:55:44] 🎵 Luna sings "ooo"
+[21:55:44] GENERATING 6-SECOND LOOP
+[21:55:44] EXPORTED 6s loop
