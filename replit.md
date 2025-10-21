@@ -8,6 +8,11 @@ An experimental generative audio web application that creates evolving 6-second 
 **Last Updated**: October 21, 2025
 
 ## Recent Changes
+- **October 21, 2025**: Enhanced with voting and expanded vocalizations
+  - Added agentic voting system where all 6 agents vote on who sings next
+  - Expanded phoneme library from 5 to 30+ vocalizations including syllables like "la", "hmm", "wow", etc.
+  - Terminal now displays complete voting process with emoji indicators
+  - Voting results stored in votes.jsonl for tracking
 - **October 21, 2025**: Initial Replit setup
   - Installed Python 3.11 with Flask, gunicorn, numpy, and scipy
   - Fixed template folder path to use standard Flask structure
@@ -38,10 +43,11 @@ An experimental generative audio web application that creates evolving 6-second 
 ```
 
 ### How It Works
-1. **Initialization**: On startup, the app clears previous logs and generates initial sounds from 3 random agents
-2. **Audio Generation**: Each agent has a unique base frequency. Phoneme length affects pitch variation
-3. **Auto Cycle**: Every 6 seconds, a random agent "sings" a random phoneme (o, a, i, u, e), updating the audio loop
-4. **Frontend**: Displays the audio player, real-time waveform visualization, and terminal logs of agent activity
+1. **Initialization**: On startup, the app clears previous logs and generates initial sounds from 3 random agents using varied vocalizations
+2. **Agentic Voting**: Every 6 seconds, all 6 agents vote for who should sing next. The agent with the most votes (or random winner if tied) gets to perform
+3. **Audio Generation**: Each agent has a unique base frequency. Phoneme length affects pitch variation through frequency shifts
+4. **Vocalization Selection**: The winning agent randomly chooses from 30+ phonemes and vocalizations, with 30% chance of repetition
+5. **Frontend**: Displays the audio player, real-time waveform visualization, and terminal logs showing voting process and agent activity
 
 ### Agents & Instruments
 - **Luna**: 220 Hz (gain 0.3)
@@ -51,12 +57,23 @@ An experimental generative audio web application that creates evolving 6-second 
 - **Echo**: 440 Hz (gain 0.3)
 - **Stella**: 660 Hz (gain 0.3)
 
+### Vocalizations
+The agents can choose from 30+ phonemes and vocalizations:
+- **Basic vowels**: o, a, i, u, e
+- **Extended vowels**: ah, oh, ee, oo, eh
+- **Syllables with 'a'**: la, na, ma, ra, da
+- **Syllables with 'o'**: lo, no, mo, ro, do
+- **Syllables with 'i'**: li, ni, mi, ri, di
+- **Sustained sounds**: hum, hmm, ahh, ooo, eee
+- **Expressive sounds**: wow, yay, oof, bah, doh
+
 ### Configuration
 - **Port**: 5000 (Flask development server)
 - **Max Tracks**: 6 concurrent sounds in the loop
 - **Loop Duration**: 6 seconds
 - **Sample Rate**: 44.1 kHz
 - **Volume Boost**: 0.5
+- **Voting Frequency**: Every 6 seconds (synchronized with loop duration)
 
 ## Development
 - Run locally: The Flask App workflow is configured to run automatically

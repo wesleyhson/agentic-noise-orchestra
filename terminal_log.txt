@@ -85,3 +85,133 @@
 [21:55:44] 🎵 Luna sings "ooo"
 [21:55:44] GENERATING 6-SECOND LOOP
 [21:55:44] EXPORTED 6s loop
+[21:55:50] 🗳️  Luna votes for Nimbus
+[21:55:50] 🗳️  Sol votes for Echo
+[21:55:50] 🗳️  Aurora votes for Aurora
+[21:55:50] 🗳️  Nimbus votes for Nimbus
+[21:55:50] 🗳️  Echo votes for Aurora
+[21:55:50] 🗳️  Stella votes for Echo
+[21:55:50] ✨ Aurora WINS with 2 votes!
+[21:55:50] 🎵 Aurora sings "ro"
+[21:55:50] GENERATING 6-SECOND LOOP
+[21:55:50] EXPORTED 6s loop
+[21:55:56] 🗳️  Luna votes for Stella
+[21:55:56] 🗳️  Sol votes for Luna
+[21:55:56] 🗳️  Aurora votes for Aurora
+[21:55:56] 🗳️  Nimbus votes for Nimbus
+[21:55:56] 🗳️  Echo votes for Stella
+[21:55:56] 🗳️  Stella votes for Stella
+[21:55:56] ✨ Stella WINS with 3 votes!
+[21:55:56] 🎵 Stella sings "ahahahah"
+[21:55:56] GENERATING 6-SECOND LOOP
+[21:55:56] EXPORTED 6s loop
+[21:56:02] 🗳️  Luna votes for Stella
+[21:56:02] 🗳️  Sol votes for Aurora
+[21:56:02] 🗳️  Aurora votes for Aurora
+[21:56:02] 🗳️  Nimbus votes for Luna
+[21:56:02] 🗳️  Echo votes for Sol
+[21:56:02] 🗳️  Stella votes for Nimbus
+[21:56:02] ✨ Aurora WINS with 2 votes!
+[21:56:02] 🎵 Aurora sings "ahh"
+[21:56:02] GENERATING 6-SECOND LOOP
+[21:56:02] EXPORTED 6s loop
+[21:56:08] 🗳️  Luna votes for Stella
+[21:56:08] 🗳️  Sol votes for Nimbus
+[21:56:08] 🗳️  Aurora votes for Echo
+[21:56:08] 🗳️  Nimbus votes for Luna
+[21:56:08] 🗳️  Echo votes for Stella
+[21:56:08] 🗳️  Stella votes for Aurora
+[21:56:08] ✨ Stella WINS with 2 votes!
+[21:56:08] 🎵 Stella sings "dada"
+[21:56:08] GENERATING 6-SECOND LOOP
+[21:56:08] EXPORTED 6s loop
+[21:56:14] 🗳️  Luna votes for Aurora
+[21:56:14] 🗳️  Sol votes for Luna
+[21:56:14] 🗳️  Aurora votes for Aurora
+[21:56:14] 🗳️  Nimbus votes for Luna
+[21:56:14] 🗳️  Echo votes for Aurora
+[21:56:14] 🗳️  Stella votes for Stella
+[21:56:14] ✨ Aurora WINS with 3 votes!
+[21:56:14] 🎵 Aurora sings "momo"
+[21:56:14] GENERATING 6-SECOND LOOP
+[21:56:14] EXPORTED 6s loop
+[21:56:20] 🗳️  Luna votes for Aurora
+[21:56:20] 🗳️  Sol votes for Aurora
+[21:56:20] 🗳️  Aurora votes for Echo
+[21:56:20] 🗳️  Nimbus votes for Stella
+[21:56:20] 🗳️  Echo votes for Nimbus
+[21:56:20] 🗳️  Stella votes for Stella
+[21:56:20] ✨ Stella WINS with 2 votes!
+[21:56:20] 🎵 Stella sings "oof"
+[21:56:20] GENERATING 6-SECOND LOOP
+[21:56:20] EXPORTED 6s loop
+[21:56:26] 🗳️  Luna votes for Aurora
+[21:56:26] 🗳️  Sol votes for Nimbus
+[21:56:26] 🗳️  Aurora votes for Aurora
+[21:56:26] 🗳️  Nimbus votes for Stella
+[21:56:26] 🗳️  Echo votes for Sol
+[21:56:26] 🗳️  Stella votes for Stella
+[21:56:26] ✨ Aurora WINS with 2 votes!
+[21:56:26] 🎵 Aurora sings "ni"
+[21:56:26] GENERATING 6-SECOND LOOP
+[21:56:26] EXPORTED 6s loop
+[21:56:32] 🗳️  Luna votes for Sol
+[21:56:32] 🗳️  Sol votes for Stella
+[21:56:32] 🗳️  Aurora votes for Sol
+[21:56:32] 🗳️  Nimbus votes for Aurora
+[21:56:32] 🗳️  Echo votes for Luna
+[21:56:32] 🗳️  Stella votes for Sol
+[21:56:32] ✨ Sol WINS with 3 votes!
+[21:56:32] 🎵 Sol sings "rorororo"
+[21:56:32] GENERATING 6-SECOND LOOP
+[21:56:32] EXPORTED 6s loop
+[21:56:38] 🗳️  Luna votes for Sol
+[21:56:38] 🗳️  Sol votes for Aurora
+[21:56:38] 🗳️  Aurora votes for Nimbus
+[21:56:38] 🗳️  Nimbus votes for Nimbus
+[21:56:38] 🗳️  Echo votes for Aurora
+[21:56:38] 🗳️  Stella votes for Nimbus
+[21:56:38] ✨ Nimbus WINS with 3 votes!
+[21:56:38] 🎵 Nimbus sings "ii"
+[21:56:38] GENERATING 6-SECOND LOOP
+[21:56:38] EXPORTED 6s loop
+[21:56:44] 🗳️  Luna votes for Stella
+[21:56:44] 🗳️  Sol votes for Stella
+[21:56:44] 🗳️  Aurora votes for Nimbus
+[21:56:44] 🗳️  Nimbus votes for Stella
+[21:56:44] 🗳️  Echo votes for Sol
+[21:56:44] 🗳️  Stella votes for Sol
+[21:56:44] ✨ Stella WINS with 3 votes!
+[21:56:44] 🎵 Stella sings "eh"
+[21:56:44] GENERATING 6-SECOND LOOP
+[21:56:45] EXPORTED 6s loop
+[21:56:51] 🗳️  Luna votes for Aurora
+[21:56:51] 🗳️  Sol votes for Sol
+[21:56:51] 🗳️  Aurora votes for Stella
+[21:56:51] 🗳️  Nimbus votes for Echo
+[21:56:51] 🗳️  Echo votes for Luna
+[21:56:51] 🗳️  Stella votes for Luna
+[21:56:51] ✨ Luna WINS with 2 votes!
+[21:56:51] 🎵 Luna sings "hmm"
+[21:56:51] GENERATING 6-SECOND LOOP
+[21:56:51] EXPORTED 6s loop
+[21:56:57] 🗳️  Luna votes for Stella
+[21:56:57] 🗳️  Sol votes for Stella
+[21:56:57] 🗳️  Aurora votes for Sol
+[21:56:57] 🗳️  Nimbus votes for Aurora
+[21:56:57] 🗳️  Echo votes for Nimbus
+[21:56:57] 🗳️  Stella votes for Sol
+[21:56:57] ✨ Sol WINS with 2 votes!
+[21:56:57] 🎵 Sol sings "lo"
+[21:56:57] GENERATING 6-SECOND LOOP
+[21:56:57] EXPORTED 6s loop
+[21:57:03] 🗳️  Luna votes for Nimbus
+[21:57:03] 🗳️  Sol votes for Sol
+[21:57:03] 🗳️  Aurora votes for Aurora
+[21:57:03] 🗳️  Nimbus votes for Stella
+[21:57:03] 🗳️  Echo votes for Echo
+[21:57:03] 🗳️  Stella votes for Sol
+[21:57:03] ✨ Sol WINS with 2 votes!
+[21:57:03] 🎵 Sol sings "iii"
+[21:57:03] GENERATING 6-SECOND LOOP
+[21:57:03] EXPORTED 6s loop
