@@ -12,7 +12,8 @@ app = Flask(__name__, template_folder='.')
 
 # CONFIG
 SOUND_LOG   = "sounds.jsonl"
-OUTPUT_MP3  = "output.wav"  # Use WAV for simplicity
+OUTPUT_MP3  = "output.wav"
+VOTE_LOG    = "votes.jsonl"  # ← THIS WAS MISSING
 LOG_FILE    = "terminal_log.txt"
 MAX_TRACKS  = 6
 BASE_DURATION_MS = 6000
@@ -28,7 +29,6 @@ INSTRUMENTS = {
     "Stella":   {"freq": 660, "gain": 0.3},
 }
 
-# STATE
 volume_boost = 0.5
 last_update = 0
 
@@ -65,11 +65,8 @@ def generate_audio():
         with open(SOUND_LOG) as f:
             recent = [json.loads(l) for l in f.readlines()[-MAX_TRACKS:]]
 
-    # Create 6-second audio
     duration_seconds = 6
     t = np.linspace(0, duration_seconds, int(SAMPLE_RATE * duration_seconds), endpoint=False)
-
-    # Mix all sounds
     mix = np.zeros(len(t))
 
     for idx, entry in enumerate(recent):
@@ -77,17 +74,13 @@ def generate_audio():
         phoneme = entry["phoneme"]
         freq = INSTRUMENTS[agent]["freq"] + len(phoneme) * 10
         gain = INSTRUMENTS[agent]["gain"] * volume_boost
-        start_time = idx * 1.0  # 1 second per agent
+        start_time = idx * 1.0
         end_time = start_time + 1.0
-
-        # Sine wave for this agent
         mask = (t >= start_time) & (t < end_time)
         wave = np.sin(2 * np.pi * freq * t[mask])
         mix[mask] += gain * wave
 
     mix = (mix * 32767).astype(np.int16)
-
-    # Save WAV
     wav_io = BytesIO()
     wavfile.write(wav_io, SAMPLE_RATE, mix)
     wav_io.seek(0)
