@@ -8,6 +8,10 @@ An experimental generative audio web application that creates evolving 6-second 
 **Last Updated**: October 21, 2025
 
 ## Recent Changes
+- **October 21, 2025**: Fixed critical production deployment bug
+  - Background voting thread now starts correctly in production (gunicorn)
+  - App is now fully functional when deployed, not just in development
+  - Increased log display from 30 to 100 lines for better visibility
 - **October 21, 2025**: Redesigned voting to control sound parameters
   - Agents now vote on sound parameter changes (volume, complexity, pitch, decay) instead of who sings
   - Winning parameter changes affect the entire soundscape (e.g., louder, more complex, pitch up/down)

@@ -209,7 +209,8 @@ def auto_cycle():
         log(f"🎵 {agent} sings \"{phoneme}\"")
         generate_audio()
 
-if __name__ == "__main__":
+def initialize_app():
+    """Initialize the app - runs both in development and production"""
     for f in [SOUND_LOG, VOTE_LOG, LOG_FILE]:
         if os.path.exists(f): os.remove(f)
         open(f, "a").close()
@@ -227,4 +228,9 @@ if __name__ == "__main__":
         time.sleep(0.5)
     generate_audio()
     threading.Thread(target=auto_cycle, daemon=True).start()
+
+# Initialize app when module is loaded (works for both dev and production)
+initialize_app()
+
+if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
